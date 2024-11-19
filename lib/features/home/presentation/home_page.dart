@@ -14,17 +14,19 @@ class HomePage extends GetView<HomeController> {
       body: Obx(() {
         return controller.isLoading.value
             ? const Center(child: CircularProgressIndicator())
-            : ListView.builder(itemBuilder: (BuildContext context, int index) {
-                var data = controller.governorates[index];
-                return Card(
-                  child: Column(
-                    children: [
-                      Text(data.name).paddingAll(4),
-                      Text(data.latlng).paddingAll(4),
-                    ],
-                  ).paddingAll(8),
-                );
-              });
+            : ListView.builder(
+                itemCount: controller.governorates.length,
+                itemBuilder: (BuildContext context, int index) {
+                  var data = controller.governorates[index];
+                  return Card(
+                    child: Column(
+                      children: [
+                        Text(data.name).paddingAll(4),
+                        Text(data.latlng).paddingAll(4),
+                      ],
+                    ).paddingAll(8),
+                  );
+                });
       }),
     );
   }
