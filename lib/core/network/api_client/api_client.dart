@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
 import 'api_interceptor.dart';
@@ -11,7 +12,6 @@ import 'package:getx_rest_api_call/core/network/error_handling/bad_request.dart'
 import 'package:getx_rest_api_call/core/network/error_handling/exception_utils.dart';
 import 'package:getx_rest_api_call/core/network/error_handling/exceptions.dart';
 import 'package:getx_rest_api_call/core/network/error_handling/error_object.dart';
-
 
 class ApiClient extends GetConnect {
   ApiClient() {
@@ -47,7 +47,7 @@ class ApiClient extends GetConnect {
       Response response, T Function(String) fromJson) async {
     if (response.statusCode == AppStatusCode.success) {
       try {
-        return fromJson(response.body);
+        return fromJson(jsonEncode(response.body));
       } catch (e) {
         throw DataParsingException();
       }
